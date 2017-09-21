@@ -8,7 +8,12 @@ RUN pip install flask
 # To have a maximum of 1 MB (Nginx's default) change the line to:
 # ENV NGINX_MAX_UPLOAD 1m
 ENV NGINX_MAX_UPLOAD 0
-ENV NGINX_PORT 8080
+
+# Use customized port, default as 8080
+ARG port=8080
+
+ENV NGINX_PORT $port
+EXPOSE $port
 
 # Which uWSGI .ini file should be used, to make it customizable
 ENV UWSGI_INI /app/uwsgi.ini
