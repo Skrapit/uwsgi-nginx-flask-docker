@@ -11,7 +11,8 @@ USE_STATIC_URL=${STATIC_URL:-'/static'}
 USE_STATIC_PATH=${STATIC_PATH:-'/app/static'}
 
 # Generate Nginx config first part using the environment variables
-echo 'server {
+printf 'server {
+    listen %s;
     location / {
         try_files $uri @app;
     }
@@ -19,9 +20,9 @@ echo 'server {
         include uwsgi_params;
         uwsgi_pass unix:///tmp/uwsgi.sock;
     }
-    '"location $USE_STATIC_URL {
-        alias $USE_STATIC_PATH;
-    }" > /etc/nginx/conf.d/nginx.conf
+    location %s {
+        alias %s;
+    }' "$NGINX_PORT" "$USE_STATIC_URL" "$USE_STATIC_PATH" > /etc/nginx/conf.d/nginx.conf
 
 # If STATIC_INDEX is 1, serve / with /static/index.html directly (or the static URL configured)
 if [[ $STATIC_INDEX == 1 ]] ; then 

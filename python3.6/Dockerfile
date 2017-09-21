@@ -1,6 +1,6 @@
 FROM tiangolo/uwsgi-nginx:python3.6
 
-MAINTAINER Sebastian Ramirez <tiangolo@gmail.com>
+MAINTAINER Wallace Wu <wallace@skrapit.co>
 
 RUN pip install flask
 
@@ -8,6 +8,7 @@ RUN pip install flask
 # To have a maximum of 1 MB (Nginx's default) change the line to:
 # ENV NGINX_MAX_UPLOAD 1m
 ENV NGINX_MAX_UPLOAD 0
+ENV NGINX_PORT 8080
 
 # Which uWSGI .ini file should be used, to make it customizable
 ENV UWSGI_INI /app/uwsgi.ini
